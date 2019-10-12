@@ -12,30 +12,47 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * @author wangdong
+ */
 @Configuration
 @EnableSwagger2
 @EnableSwaggerBootstrapUI
 public class Swagger2 {
 
-    // 接口版本号
+    /**
+     * 接口版本号
+     */
     private final String version = "1.0";
 
-    // 接口大标题
+    /**
+     * 接口大标题
+     */
     private final String title = "税务管理平台申报系统";
 
-    // 具体的描述
+    /**
+     * 具体的描述
+     */
     private final String description = "API文档自动生成示例";
 
-    // 服务说明url
+    /**
+     * 服务说明url
+     */
     private final String termsOfServiceUrl = "";
 
-    // license
+    /**
+     * license
+     */
     private final String lincense = "";
 
-    // license url
+    /**
+     * license url
+     */
     private final String licenseUrl = "";
 
-    // 接口作者联系方式
+    /**
+     * 接口作者联系方式
+     */
     private final Contact contact = new Contact("wangd2", "https://github.com/JohnWangv7", "wangd2@esensoft.com");
 
     @Bean
@@ -44,7 +61,7 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .select()
                 // 指定controller存放的目录路径
-                .apis(RequestHandlerSelectors.basePackage("com.esensoft.swglpt.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.esen.swglpt.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
