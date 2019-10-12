@@ -7,30 +7,30 @@ spring:
       username: sb
       password: sb
       driver-class-name: oracle.jdbc.OracleDriver
-      # Êı¾İÔ´ÅäÖÃ£¬³õÊ¼»¯´óĞ¡¡¢×îĞ¡¡¢×î´ó
+      # æ•°æ®æºé…ç½®ï¼Œåˆå§‹åŒ–å¤§å°ã€æœ€å°ã€æœ€å¤§
       initialSize: 5
       minIdle: 5
       maxActive: 20
-      # Á¬½ÓµÈ´ı³¬Ê±Ê±¼ä
+      # è¿æ¥ç­‰å¾…è¶…æ—¶æ—¶é—´
       maxWait: 60000
-      # ÅäÖÃ¸ô¶à¾Ã½øĞĞÒ»´Î¼ì²â£¨¼ì²â¿ÉÒÔ¹Ø±ÕµÄ¿ÕÏĞÁ¬½Ó£©
+      # é…ç½®éš”å¤šä¹…è¿›è¡Œä¸€æ¬¡æ£€æµ‹ï¼ˆæ£€æµ‹å¯ä»¥å…³é—­çš„ç©ºé—²è¿æ¥ï¼‰
       timeBetweenEvictionRunsMillis: 3000
-      # ÅäÖÃÁ¬½ÓÔÚ³ØÖĞµÄ×îĞ¡Éú´æÊ±¼ä
+      # é…ç½®è¿æ¥åœ¨æ± ä¸­çš„æœ€å°ç”Ÿå­˜æ—¶é—´
       minEvictableIdleTimeMillis: 300000
       validationQuery: SELECT 'ZTM' FROM DUAL
       validationQueryTimeout: 10000
       testWhileIdle: true
       testOnBorrow: false
       testOnReturn: false
-      # ´ò¿ªPSCache£¬²¢ÇÒÖÆ¶¨Ã¿¸öÁ¬½ÓÉÏPSCacheµÄ´óĞ¡
+      # æ‰“å¼€PSCacheï¼Œå¹¶ä¸”åˆ¶å®šæ¯ä¸ªè¿æ¥ä¸ŠPSCacheçš„å¤§å°
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-      # ÅäÖÃ¼à¿ØÍ³¼ÆÀ¹½ØµÄfilters£¬È¥µôºó¼à¿Ø½çÃæsqlÎŞ·¨Í³¼Æ£¬¡®wall¡¯ÓÃÓÚ·À»ğÇ½
+      # é…ç½®ç›‘æ§ç»Ÿè®¡æ‹¦æˆªçš„filtersï¼Œå»æ‰åç›‘æ§ç•Œé¢sqlæ— æ³•ç»Ÿè®¡ï¼Œâ€˜wallâ€™ç”¨äºé˜²ç«å¢™
       filters: stat,wall,slf4j
-      # Í¨¹ıconnectPropertiesÊôĞÔÀ´´ò¿ªmergeSql¹¦ÄÜ£ºÂıSQL¼ÇÂ¼
+      # é€šè¿‡connectPropertieså±æ€§æ¥æ‰“å¼€mergeSqlåŠŸèƒ½ï¼šæ…¢SQLè®°å½•
       connectionProperties: druid.stat.mergeSql=true; druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
-    ##RedisÅäÖÃ
+    ## Redisé…ç½®
   redis:
     host: 127.0.0.1
     port: 6379
