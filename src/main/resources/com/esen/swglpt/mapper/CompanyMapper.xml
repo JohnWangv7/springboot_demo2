@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.esen.swglpt.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.esen.swglpt.entity.Company" >
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="COMPANY_ADDRESS" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="COMPANY_DESCRIPTION" property="companyDescription" jdbcType="VARCHAR" />
+    <result column="COMPANY_PEOPLE_NUM" property="companyPeopleNum" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectAll" resultType="com.esen.swglpt.entity.Company">
+        select
+			company_id          companyId,
+			company_address     companyAddress,
+			company_description companyDescription,
+			company_people_num  companyPeopleNum,
+			company_name        companyName
+ 		from t_company
+    </select>
+  <insert id="insert" parameterType="com.esen.swglpt.entity.Company" >
+    insert into T_COMPANY (COMPANY_ID, COMPANY_ADDRESS, COMPANY_DESCRIPTION, 
+      COMPANY_PEOPLE_NUM, COMPANY_NAME)
+    values (#{companyId,jdbcType=DECIMAL}, #{companyAddress,jdbcType=VARCHAR}, #{companyDescription,jdbcType=VARCHAR}, 
+      #{companyPeopleNum,jdbcType=DECIMAL}, #{companyName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.esen.swglpt.entity.Company" >
+    insert into T_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="companyAddress != null" >
+        COMPANY_ADDRESS,
+      </if>
+      <if test="companyDescription != null" >
+        COMPANY_DESCRIPTION,
+      </if>
+      <if test="companyPeopleNum != null" >
+        COMPANY_PEOPLE_NUM,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDescription != null" >
+        #{companyDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPeopleNum != null" >
+        #{companyPeopleNum,jdbcType=DECIMAL},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
