@@ -1,5 +1,6 @@
 #Spring
 spring:
+  ## DataSource
   datasource:
     type: com.alibaba.druid.pool.xa.DruidXADataSource
     druid:
@@ -30,7 +31,10 @@ spring:
       # 通过connectProperties属性来打开mergeSql功能：慢SQL记录
       connectionProperties: druid.stat.mergeSql=true; druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
-    ## Redis配置
+  ## session
+  session:
+    store-type: redis
+  ## Redis配置
   redis:
     host: 127.0.0.1
     port: 6379
@@ -53,14 +57,17 @@ spring:
       enabled: always
   profiles:
     active: dev
+  ## thymeleaf
   thymeleaf:
     encoding: UTF-8
     prefix: classpath:/templates/
+  ## http
   http:
     encoding:
       charset: UTF-8
       force: true
       enabled: true
+# server config
 server:
   tomcat:
     uri-encoding: UTF-8
@@ -71,9 +78,13 @@ server:
   port: 8080
   servlet:
     context-path: /swglpt
+    session:
+      timeout: PT1M
+# mybatis
 mybatis:
   type-aliases-package: com.esen.swglpt.mapper
   mapper-locations: classpath:com/esen/swglpt/mapper/*.xml
+# logging
 logging:
   level:
     com.esen.swglpt.mapper: debug

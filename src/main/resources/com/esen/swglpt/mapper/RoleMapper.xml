@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.esen.swglpt.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.esen.swglpt.entity.Role">
+        <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL"/>
+        <result column="ROLE_GROUP_ID" property="roleGroupId" jdbcType="DECIMAL"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+        <result column="ROLE_DESCRIPTION" property="roleDescription" jdbcType="VARCHAR"/>
+        <result column="ROLE_ORDER" property="roleOrder" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ROLE_ID, ROLE_GROUP_ID, ROLE_NAME, ROLE_DESCRIPTION, ROLE_ORDER
+      </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short">
+        select
+        <include refid="Base_Column_List"/>
+        from T_ROLE
+        where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectAllList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from T_ROLE
+    </select>
+
+    <select id="selectRoleByUserId" resultType="com.esen.swglpt.entity.Role" parameterType="java.lang.Long">
+      select r.ROLE_ID,
+       r.ROLE_GROUP_ID,
+       r.ROLE_NAME,
+       r.ROLE_DESCRIPTION,
+       r.ROLE_ORDER
+      from t_role r
+      left join t_user u
+        on r.role_id = u.role_id
+      where u.user_id = #{userId,jdbcType=DECIMAL}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from T_ROLE
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </delete>
+    <insert id="insert" parameterType="com.esen.swglpt.entity.Role">
+    insert into T_ROLE (ROLE_ID, ROLE_GROUP_ID, ROLE_NAME, 
+      ROLE_DESCRIPTION, ROLE_ORDER)
+    values (#{roleId,jdbcType=DECIMAL}, #{roleGroupId,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, 
+      #{roleDescription,jdbcType=VARCHAR}, #{roleOrder,jdbcType=DECIMAL})
+  </insert>
+    <insert id="insertSelective" parameterType="com.esen.swglpt.entity.Role">
+        insert into T_ROLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="roleGroupId != null">
+                ROLE_GROUP_ID,
+            </if>
+            <if test="roleName != null">
+                ROLE_NAME,
+            </if>
+            <if test="roleDescription != null">
+                ROLE_DESCRIPTION,
+            </if>
+            <if test="roleOrder != null">
+                ROLE_ORDER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=DECIMAL},
+            </if>
+            <if test="roleGroupId != null">
+                #{roleGroupId,jdbcType=DECIMAL},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDescription != null">
+                #{roleDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="roleOrder != null">
+                #{roleOrder,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.esen.swglpt.entity.Role">
+        update T_ROLE
+        <set>
+            <if test="roleGroupId != null">
+                ROLE_GROUP_ID = #{roleGroupId,jdbcType=DECIMAL},
+            </if>
+            <if test="roleName != null">
+                ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDescription != null">
+                ROLE_DESCRIPTION = #{roleDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="roleOrder != null">
+                ROLE_ORDER = #{roleOrder,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.esen.swglpt.entity.Role">
+    update T_ROLE
+    set ROLE_GROUP_ID = #{roleGroupId,jdbcType=DECIMAL},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ROLE_DESCRIPTION = #{roleDescription,jdbcType=VARCHAR},
+      ROLE_ORDER = #{roleOrder,jdbcType=DECIMAL}
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

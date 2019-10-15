@@ -1,53 +1,32 @@
 package com.esen.swglpt.entity;
 
-public class Company {
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author wangdong
+ * <p>
+ * 公司类
+ */
+@Data
+@ApiModel(value = "Company", description = "公司类")
+public class Company implements Serializable {
+
+    @ApiModelProperty(required = true, name = "companyId", value = "公司ID", dataType = "Integer", example = "2000110")
     private Integer companyId;
 
-    private String companyAddress;
-
-    private String companyDescription;
-
-    private Integer companyPeopleNum;
-
+    @ApiModelProperty(required = true, name = "companyName", value = "公司名称", dataType = "String")
     private String companyName;
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
+    @ApiModelProperty(required = true, name = "companyAddress", value = "公司地址", dataType = "String")
+    private String companyAddress;
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
+    @ApiModelProperty(required = true, name = "companyDescription", value = "公司描述", dataType = "String")
+    private String companyDescription;
 
-    public String getCompanyAddress() {
-        return companyAddress;
-    }
-
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress == null ? null : companyAddress.trim();
-    }
-
-    public String getCompanyDescription() {
-        return companyDescription;
-    }
-
-    public void setCompanyDescription(String companyDescription) {
-        this.companyDescription = companyDescription == null ? null : companyDescription.trim();
-    }
-
-    public Integer getCompanyPeopleNum() {
-        return companyPeopleNum;
-    }
-
-    public void setCompanyPeopleNum(Integer companyPeopleNum) {
-        this.companyPeopleNum = companyPeopleNum;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
-    }
+    @ApiModelProperty(required = true, name = "companyPeopleNum", value = "公司人数", dataType = "Integer")
+    private Integer companyPeopleNum;
 }

@@ -21,16 +21,16 @@ import java.util.Map;
 
 /**
  * @author wangdong
- * */
+ */
 @Configuration
 @MapperScan(basePackages = MyBatisConfig.BASE_PACKAGE, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class MyBatisConfig extends AbstractDataSourceConfig {
 
-    static final String BASE_PACKAGE = "com.esensoft.swglpt.dao";
+    static final String BASE_PACKAGE = "com.esen.swglpt.mapper";
 
-    static final String ALIASES_PACKAGE = "com.esensoft.swglpt.entity";
+    private static final String ALIASES_PACKAGE = "com.esen.swglpt.entity";
 
-    static final String MAPPER_LOCATION = "classpath*:com/esensoft/swglpt/mapping/*.xml";
+    static final String MAPPER_LOCATION = "classpath*:com/esen/swglpt/mapper/*.xml";
 
 //    @Primary
 //    @Bean(name = "dataSourceSB")
@@ -47,11 +47,10 @@ public class MyBatisConfig extends AbstractDataSourceConfig {
     }
 
 
-
     @Bean("dynamicDataSource")
-    public DynamicDataSource dynamicDataSource(@Qualifier("dataSourceSB")DataSource dataSourceSB) {
+    public DynamicDataSource dynamicDataSource(@Qualifier("dataSourceSB") DataSource dataSourceSB) {
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put("sb",dataSourceSB);
+        targetDataSources.put("sb", dataSourceSB);
 
         DynamicDataSource dataSource = new DynamicDataSource();
         dataSource.setTargetDataSources(targetDataSources);
@@ -61,17 +60,15 @@ public class MyBatisConfig extends AbstractDataSourceConfig {
 
     @Bean(name = "sqlSessionFactorySB")
     public SqlSessionFactory sqlSessionFactorySB(@Qualifier("dataSourceSB") DataSource dataSource)
-        throws Exception {
+            throws Exception {
         return createSqlSessionFactory(dataSource);
     }
-
-
 
 
     @Bean(name = "sqlSessionTemplate")
     public CustomSqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactorySB") SqlSessionFactory factoryOracle) throws Exception {
         Map<Object, SqlSessionFactory> sqlSessionFactoryMap = new HashMap<>();
-        sqlSessionFactoryMap.put("oracle",factoryOracle);
+        sqlSessionFactoryMap.put("oracle", factoryOracle);
 
         CustomSqlSessionTemplate customSqlSessionTemplate = new CustomSqlSessionTemplate(factoryOracle);
         customSqlSessionTemplate.setTargetSqlSessionFactorys(sqlSessionFactoryMap);
@@ -80,10 +77,11 @@ public class MyBatisConfig extends AbstractDataSourceConfig {
 
     /**
      * 创建数据源
+     *
      * @param dataSource
      * @return
      */
-    private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) throws Exception{
+    private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setVfs(SpringBootVFS.class);

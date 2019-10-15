@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.esen.swglpt.mapper.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.esen.swglpt.entity.RoleMenu" >
+    <result column="ROLE_MENU_ID" property="roleMenuId" jdbcType="DECIMAL" />
+    <result column="MENU_ID" property="menuId" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="com.esen.swglpt.entity.RoleMenu" >
+    insert into T_ROLE_MENU (ROLE_MENU_ID, MENU_ID, ROLE_ID
+      )
+    values (#{roleMenuId,jdbcType=DECIMAL}, #{menuId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.esen.swglpt.entity.RoleMenu" >
+    insert into T_ROLE_MENU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleMenuId != null" >
+        ROLE_MENU_ID,
+      </if>
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleMenuId != null" >
+        #{roleMenuId,jdbcType=DECIMAL},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

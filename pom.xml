@@ -36,8 +36,8 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-redis-reactive</artifactId>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-redis-reactive</artifactId>-->
         <!--</dependency>-->
         <!--aop-->
         <dependency>
@@ -199,9 +199,19 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.2</version>
                 <configuration>
-                    <configurationFile>${basedir}/src/main/resources/config/generator/generatorConfig.xml</configurationFile>
+                    <configurationFile>${basedir}/src/main/resources/config/generator/generatorConfig.xml
+                    </configurationFile>
                     <overwrite>true</overwrite>
                     <verbose>true</verbose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,56 +1,82 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.esen.swglpt.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.esen.swglpt.entity.User">
-        <id column="ID" property="id" jdbcType="DECIMAL"/>
-        <result column="USERNAME" property="username" jdbcType="VARCHAR"/>
-        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
-        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
-        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
-        <result column="SEX" property="sex" jdbcType="VARCHAR"/>
-        <result column="NIKCNAME" property="nikcname" jdbcType="VARCHAR"/>
+        <id column="USER_ID" jdbcType="DECIMAL" property="userId"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="MOBILE" jdbcType="VARCHAR" property="mobile"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="SEX" jdbcType="VARCHAR" property="sex"/>
+        <result column="ROLE_ID" jdbcType="DECIMAL" property="roleId"/>
+        <result column="USER_GROUP" jdbcType="DECIMAL" property="userGroup"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="STATUS" jdbcType="DECIMAL" property="status"/>
+        <result column="IS_ONLINE" jdbcType="CHAR" property="isOnline"/>
+        <result column="IS_LIMIT" jdbcType="CHAR" property="isLimit"/>
+        <result column="SALT" jdbcType="VARCHAR" property="salt"/>
     </resultMap>
     <sql id="Base_Column_List">
-    ID, USERNAME, PASSWORD, MOBILE, EMAIL, SEX, NIKCNAME
-  </sql>
+    USER_ID, USERNAME, PASSWORD, MOBILE, EMAIL, SEX, ROLE_ID, USER_GROUP, CREATE_TIME,
+    LAST_LOGIN_TIME, STATUS, IS_ONLINE, IS_LIMIT, SALT
+    </sql>
 
-    <select id="findUserByAccountAndPassword" resultMap="BaseResultMap" parameterType="com.esen.swglpt.entity.User">
+    <select id="findUserByAccountAndPassword" parameterType="com.esen.swglpt.entity.User" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from T_USER
         where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
 
-    <select id="findUserByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="findUserByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from T_USER
-        where ID = #{userId,jdbcType=DECIMAL}
+        where USER_ID = #{userId,jdbcType=DECIMAL}
     </select>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from T_USER
-        where ID = #{id,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from T_USER
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from T_USER
+        where USER_ID = #{userId,jdbcType=DECIMAL}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from T_USER
-    where ID = #{id,jdbcType=DECIMAL}
-  </delete>
+        delete from T_USER
+        where USER_ID = #{userId,jdbcType=DECIMAL}
+    </delete>
     <insert id="insert" parameterType="com.esen.swglpt.entity.User">
-    insert into T_USER (ID, USERNAME, PASSWORD, 
+    insert into T_USER (USER_ID, USERNAME, PASSWORD,
       MOBILE, EMAIL, SEX, 
-      NIKCNAME)
-    values (#{id,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      ROLE_ID, USER_GROUP,
+      CREATE_TIME, LAST_LOGIN_TIME, STATUS, 
+      IS_ONLINE, IS_LIMIT, SALT)
+    values (#{userId,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{nikcname,jdbcType=VARCHAR})
+      #{roleId,jdbcType=DECIMAL}, #{userGroup,jdbcType=DECIMAL},
+      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, 
+      #{isOnline,jdbcType=CHAR}, #{isLimit,jdbcType=CHAR}),  #{salt,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.esen.swglpt.entity.User">
         insert into T_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                ID,
+            <if test="userId != null">
+                USER_ID,
             </if>
             <if test="username != null">
                 USERNAME,
@@ -67,13 +93,34 @@
             <if test="sex != null">
                 SEX,
             </if>
-            <if test="nikcname != null">
-                NIKCNAME,
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="userGroup != null">
+                USER_GROUP,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="lastLoginTime != null">
+                LAST_LOGIN_TIME,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="isOnline != null">
+                IS_ONLINE,
+            </if>
+            <if test="isLimit != null">
+                IS_LIMIT,
+            </if>
+            <if test="salt != null">
+                SALT,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=DECIMAL},
+            <if test="userId != null">
+                #{userId,jdbcType=DECIMAL},
             </if>
             <if test="username != null">
                 #{username,jdbcType=VARCHAR},
@@ -90,8 +137,29 @@
             <if test="sex != null">
                 #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="nikcname != null">
-                #{nikcname,jdbcType=VARCHAR},
+            <if test="roleId != null">
+                #{roleId,jdbcType=DECIMAL},
+            </if>
+            <if test="userGroup != null">
+                #{userGroup,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=DECIMAL},
+            </if>
+            <if test="isOnline != null">
+                #{isOnline,jdbcType=CHAR},
+            </if>
+            <if test="isLimit != null">
+                #{isLimit,jdbcType=CHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -113,20 +181,48 @@
             <if test="sex != null">
                 SEX = #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="nikcname != null">
-                NIKCNAME = #{nikcname,jdbcType=VARCHAR},
+            <if test="roleId != null">
+                ROLE_ID = #{roleId,jdbcType=DECIMAL},
+            </if>
+            <if test="userGroup != null">
+                USER_GROUP = #{userGroup,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastLoginTime != null">
+                LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=DECIMAL},
+            </if>
+            <if test="isOnline != null">
+                IS_ONLINE = #{isOnline,jdbcType=CHAR},
+            </if>
+            <if test="isLimit != null">
+                IS_LIMIT = #{isLimit,jdbcType=CHAR},
+            </if>
+            <if test="salt != null">
+                SALT = #{salt,jdbcType=CHAR},
             </if>
         </set>
-        where ID = #{id,jdbcType=DECIMAL}
+        where USER_ID = #{userId,jdbcType=DECIMAL}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.esen.swglpt.entity.User">
-    update T_USER
-    set USERNAME = #{username,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      MOBILE = #{mobile,jdbcType=VARCHAR},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      SEX = #{sex,jdbcType=VARCHAR},
-      NIKCNAME = #{nikcname,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=DECIMAL}
-  </update>
+        update T_USER
+        set USERNAME = #{username,jdbcType=VARCHAR},
+          PASSWORD = #{password,jdbcType=VARCHAR},
+          MOBILE = #{mobile,jdbcType=VARCHAR},
+          EMAIL = #{email,jdbcType=VARCHAR},
+          SEX = #{sex,jdbcType=VARCHAR},
+          ROLE_ID = #{roleId,jdbcType=DECIMAL},
+          USER_GROUP = #{userGroup,jdbcType=DECIMAL},
+          CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+          LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+          STATUS = #{status,jdbcType=DECIMAL},
+          IS_ONLINE = #{isOnline,jdbcType=CHAR},
+          IS_LIMIT = #{isLimit,jdbcType=CHAR},
+          SALT = #{salt,jdbcType=VARCHAR}
+        where USER_ID = #{userId,jdbcType=DECIMAL}
+      </update>
 </mapper>
