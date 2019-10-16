@@ -88,3 +88,8 @@ mybatis:
 logging:
   level:
     com.esen.swglpt.mapper: debug
+  file:
+    D:/Esensoft/swglpt/log/log.txt
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} = [%thread] = %-5level = %logger{50} - %msg%n"

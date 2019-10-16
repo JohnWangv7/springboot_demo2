@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,17 +57,14 @@ public class LoginController {
             @ApiResponse(code = 500, message = "服务器内部错误 :(")})
     @RequestMapping(value = "/loginIn", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> loginIn(
-            @ApiParam(value = "账户", required = true) String username,
-            @ApiParam(value = "密码", required = true) String password,
-            AuthenticationToken authenticationToken) {
+    public Map<String, Object> loginIn(User user) {
         Map<String, Object> map = new HashMap<>(3);
         // 进行身份验证
         try {
             // 验证身份和登录
             Subject subject = SecurityUtils.getSubject();
 
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
             subject.login(token);
         } catch (IncorrectCredentialsException e) {
             map.put("code", 500);
@@ -165,9 +164,14 @@ public class LoginController {
 
     @RequestMapping(value = "/sessionid/get")
     @ResponseBody
-    public String getPort(HttpServletRequest request, HttpSession session) {
+    public Map<String, Object> getPort() {
+        Map<String, Object> map = new HashMap<>(2);
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
         int port = request.getLocalPort();
         String sessionId = request.getSession().getId();
-        return "port: " + port + ", session id: " + sessionId;
+        map.put("port", port);
+        map.put("sessionID", sessionId);
+        return map;
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@MapperScan("com.esen.swglpt.mapper")
 @EnableSwagger2
 @EnableSwaggerBootstrapUI
 public class SwglptApplication {

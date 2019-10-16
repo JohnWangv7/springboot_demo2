@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author wangdong
- * */
+ */
 @Aspect
 @Component
 public class DbAspect extends DataSourceAspect {
 
-    @Pointcut("execution(* com.esensoft.swglpt.dao.*.*(..))")
+    @Pointcut("execution(* com.esen.swglpt.mapper.*.*(..))")
     @Override
     protected void datasourceAspect() {
         super.datasourceAspect();
