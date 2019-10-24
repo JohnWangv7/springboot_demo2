@@ -1,6 +1,5 @@
 package com.esen.swglpt.controller;
 
-import com.esen.swglpt.common.utils.SHA256Util;
 import com.esen.swglpt.common.utils.ShiroUtils;
 import com.esen.swglpt.entity.User;
 import com.esen.swglpt.service.UserService;
@@ -8,13 +7,12 @@ import io.swagger.annotations.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +21,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -153,6 +150,7 @@ public class LoginController {
     @ApiOperation(value = "根据用户ID获取用户信息", httpMethod = "POST", notes = "获取用户信息")
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
     @ResponseBody
+    @Cacheable(value = "userId")
     public String getUserInfo(Long userId) {
         User user = userService.findUserByUserId(userId);
         if (user != null) {

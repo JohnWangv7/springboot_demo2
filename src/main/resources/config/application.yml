@@ -85,11 +85,15 @@ mybatis:
   type-aliases-package: com.esen.swglpt.mapper
   mapper-locations: classpath:com/esen/swglpt/mapper/*.xml
 # logging
-logging:
-  level:
-    com.esen.swglpt.mapper: debug
-  file:
-    D:/Esensoft/swglpt/log/log.txt
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} = [%thread] = %-5level = %logger{50} - %msg%n"
+#logging:
+#  level:
+#    #    ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+#    com.esen.swglpt.mapper: debug
+#  config: classpath:config/log4j.properties
+#  file:
+#    D:/Esensoft/swglpt/log/swglpt.log
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} = [%thread] = %-5level = %logger{50} - %msg%n"
+#logging:
+#  config: classpath:log4j.properties

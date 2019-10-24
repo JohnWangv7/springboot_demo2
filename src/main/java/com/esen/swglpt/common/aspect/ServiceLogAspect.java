@@ -39,9 +39,6 @@ public class ServiceLogAspect {
         HttpServletRequest request = attributes.getRequest();
         // 打印请求相关参数
         // 打印调用Service的全路径以及执行方法
-//        logger.info("Class Method           :{}.{}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
-//        // 打印请求的IP
-//        logger.info("IP                     :{}", request.getRemoteAddr());
         logger.info("IP: {} - Class Method :{}.{}", request.getRemoteAddr(), joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
         // 打印请求入参
         logger.info("Request Args           :{}", new Gson().toJson(joinPoint.getArgs()));

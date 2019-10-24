@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/**
+ * @author wangdong
+ */
 @Controller
 @Api(value = "公司类控制器", tags = {"公司操作 api示例"})
 public class CompanyController {

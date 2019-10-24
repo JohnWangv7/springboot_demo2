@@ -16,6 +16,8 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
 
@@ -120,33 +122,33 @@
             <scope>test</scope>
         </dependency>
 
-        <!--从maven依赖中剔除springframework:spring-core中的common-logging-->
-        <!-- <dependency>
-             <groupId>org.springframework</groupId>
-             <artifactId>spring-core</artifactId>
-             <version>4.3.20.RELEASE</version>
-             <exclusions>
-                 <exclusion>
-                     <artifactId>commons-logging</artifactId>
-                     <groupId>commons-logging</groupId>
-                 </exclusion>
-             </exclusions>
-         </dependency>-->
-        <!--Logback-->
+        <!--从maven依赖中剔除logging-->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!--slf4j-->
+        <!--引入slf4j日志依赖-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.slf4j</groupId>-->
-        <!--<artifactId>jcl-over-slf4j</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
